@@ -10,7 +10,7 @@ import { signIn, useSession } from "next-auth/react";
 import Image from "next/image";
 import { useEffect, useMemo, useState } from "react";
 import { generateDayTimeList } from "../_helpers/hours";
-import { format, setHours, setMinutes } from "date-fns";
+import { addDays, format, setHours, setMinutes } from "date-fns";
 import { saveBooking } from "../_actions/save-booking";
 import { Loader2 } from "lucide-react";
 import { toast } from "sonner";
@@ -144,7 +144,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
             <p className="text-sm text-gray-400">{service.description}</p>
 
             <div className="flex items-center justify-between mt-3">
-              <p className="text-indigo-500 text-sm font-bold">
+              <p className="text-primary text-sm font-bold">
                 {Intl.NumberFormat("pt-BR", {
                   style: "currency",
                   currency: "BRL",
@@ -168,7 +168,7 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                       selected={date}
                       onSelect={handleDateClick}
                       locale={ptBR}
-                      fromDate={new Date()}
+                      fromDate={addDays(new Date(), 1)}
                       styles={{
                         head_cell: {
                           width: "100%",
@@ -178,12 +178,11 @@ const ServiceItem = ({ service, barbershop, isAuthenticated }: ServiceItemProps)
                           width: "100%",
                         },
                         button: {
-                          width: "100%",       
+                          width: "100%",
                         },
                         nav_button_previous: {
                           width: "32px",
                           height: "32px",
-                          
                         },
                         nav_button_next: {
                           width: "32px",
